@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* helpers */
+.container-default { @apply max-w-7xl mx-auto px-4; }
+.section { @apply py-10 md:py-14; }
