@@ -21,7 +21,8 @@ export default function Home() {
   return (
     <main className="bg-black">
       {/* 1. Ảnh nền hero (nằm NGAY dưới header) */}
-      <section className="relative w-full">
+      {/* Đẩy hero lên dưới thanh điều hướng để nav dạng glass đè lên ảnh */}
+      <section className="relative w-full -mt-14 md:-mt-16">
         <img
           src={bgHeader}
           alt="GT System background"

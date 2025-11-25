@@ -1,15 +1,22 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 
 import vnFlag from "../assets/VietnamIcon.jpg";
 import enFlag from "../assets/EnglishIcon.jpg";
 import logo from "../assets/logo.webp";
 
-const linkCls = ({ isActive }) =>
-  `px-4 py-3 uppercase tracking-wide font-semibold text-white transition-colors duration-200
-   hover:text-orange-400 ${isActive ? "text-orange-400" : "text-white"}`;
+const createLinkCls = (isHome) => () =>
+  [
+    "px-4 py-3 uppercase tracking-wide font-semibold transition-colors duration-200",
+    isHome
+      ? "text-white hover:text-orange-400"
+      : "text-slate-900 hover:text-orange-500",
+  ].join(" ");
 
 export default function Header() {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+
   const [showSearch, setShowSearch] = useState(false);
 
   // dropdown hover states
@@ -52,14 +59,14 @@ export default function Header() {
     >
       <div className="bg-gradient-to-r from-orange-200 via-orange-400 to-orange-500 divide-y divide-white/30">
         {[
-          ["./gioi-thieu", "Giới thiệu về chúng tôi", true],
-          ["#tam-nhin", "Tầm nhìn"],
-          ["#su-menh", "Sứ mệnh"],
-          ["#gia-tri", "Giá trị cốt lõi"],
-        ].map(([href, text, bold], i) => (
-          <a
+          ["/gioi-thieu", "Giới thiệu về chúng tôi", true],
+          ["/tam-nhin", "Tầm nhìn"],
+          ["/su-menh", "Sứ mệnh"],
+          ["/gia-tri-cot-loi", "Giá trị cốt lõi"],
+        ].map(([to, text, bold], i) => (
+          <NavLink
             key={i}
-            href={href}
+            to={to}
             className={`group block px-4 py-2.5 text-white transition-colors duration-200 hover:bg-white hover:text-orange-600 ${
               bold ? "font-semibold" : ""
             }`}
@@ -67,7 +74,7 @@ export default function Header() {
             <span className="inline-block transform transition-transform duration-200 group-hover:translate-x-1">
               {text}
             </span>
-          </a>
+          </NavLink>
         ))}
       </div>
     </div>
@@ -87,19 +94,19 @@ export default function Header() {
     >
       <div className="bg-gradient-to-r from-orange-200 via-orange-400 to-orange-500 divide-y divide-white/30">
         {[
-          ["#o-to-di-dong", "Ô tô và di động"],
-          ["#dich-vu-ki-thuat", "Dịch vụ kĩ thuật"],
-          ["#tri-tue-nhan-tao", "Trí tuệ nhân tạo"],
-        ].map(([href, text], i) => (
-          <a
+          ["/o-to-di-dong", "Ô tô và di động"],
+          ["/dich-vu-ki-thuat", "Dịch vụ kĩ thuật"],
+          ["/tri-tue-nhan-tao", "Trí tuệ nhân tạo"],
+        ].map(([to, text], i) => (
+          <NavLink
             key={i}
-            href={href}
+            to={to}
             className="group block px-4 py-2.5 text-white transition-colors duration-200 hover:bg-white hover:text-orange-600"
           >
             <span className="inline-block transform transition-transform duration-200 group-hover:translate-x-1">
               {text}
             </span>
-          </a>
+          </NavLink>
         ))}
       </div>
     </div>
@@ -108,11 +115,17 @@ export default function Header() {
   return (
     <header className="relative w-full z-40">
       {/* NAV bình thường (ngay dưới TopBar) - LUÔN hiển thị */}
-      <div className="w-full bg-gradient-to-r from-slate-900 via-sky-900 to-slate-900 border-b border-white/10">
+      <div
+        className={`w-full transition-colors duration-300 ${
+          isHome
+            ? "bg-white/10 border-b border-white/20 backdrop-blur-md"
+            : "bg-white border-b-2 border-orange-400 shadow-sm"
+        }`}
+      >
         <div className="container-default flex items-center justify-between h-14 md:h-16">
           {/* NAVIGATION */}
           <nav className="flex items-center gap-4 md:gap-6">
-            <NavLink to="/" className={linkCls}>
+            <NavLink to="/" className={createLinkCls(isHome)}>
               Trang chủ
             </NavLink>
 
@@ -127,10 +140,21 @@ export default function Header() {
                 aboutTimer.current = setTimeout(() => setOpenAbout(false), 120);
               }}
             >
-              <button className="px-3 py-2 uppercase tracking-wide font-semibold text-white flex items-center gap-1 hover:text-orange-400">
-                Giới thiệu <span className="text-white/70">▾</span>
+              <button
+                className={`px-3 py-2 uppercase tracking-wide font-semibold flex items-center gap-1 transition-colors duration-200 ${
+                  isHome
+                    ? "text-white hover:text-orange-400"
+                    : "text-slate-900 hover:text-orange-500"
+                }`}
+              >
+                Giới thiệu
+                <span
+                  className={isHome ? "text-white/70" : "text-slate-500"}
+                >
+                  ▾
+                </span>
               </button>
-              {AboutDropdown}
+              {!isSticky && AboutDropdown}
             </div>
 
             {/* Lĩnh vực hoạt động */}
@@ -144,19 +168,30 @@ export default function Header() {
                 fieldTimer.current = setTimeout(() => setOpenField(false), 120);
               }}
             >
-              <button className="px-3 py-2 uppercase tracking-wide font-semibold text-white flex items-center gap-1 hover:text-orange-400">
-                Lĩnh vực hoạt động <span className="text-white/70">▾</span>
+              <button
+                className={`px-3 py-2 uppercase tracking-wide font-semibold flex items-center gap-1 transition-colors duration-200 ${
+                  isHome
+                    ? "text-white hover:text-orange-400"
+                    : "text-slate-900 hover:text-orange-500"
+                }`}
+              >
+                Lĩnh vực hoạt động
+                <span
+                  className={isHome ? "text-white/70" : "text-slate-500"}
+                >
+                  ▾
+                </span>
               </button>
-              {FieldDropdown}
+              {!isSticky && FieldDropdown}
             </div>
 
-            <NavLink to="/khach-hang" className={linkCls}>
+            <NavLink to="/khach-hang" className={createLinkCls(isHome)}>
               Khách hàng
             </NavLink>
-            <NavLink to="/tuyen-dung" className={linkCls}>
+            <NavLink to="/tuyen-dung" className={createLinkCls(isHome)}>
               Tuyển dụng
             </NavLink>
-            <NavLink to="/lien-he" className={linkCls}>
+            <NavLink to="/lien-he" className={createLinkCls(isHome)}>
               Liên hệ
             </NavLink>
           </nav>
@@ -169,7 +204,11 @@ export default function Header() {
             </div>
             <button
               onClick={() => setShowSearch((s) => !s)}
-              className="p-1.5 rounded-md bg-white/5 hover:bg-white/10 text-orange-400 text-lg"
+              className={`p-1.5 rounded-md text-lg transition-colors duration-200 ${
+                isHome
+                  ? "bg-white/5 hover:bg-white/10 text-orange-400"
+                  : "bg-orange-50 hover:bg-orange-100 text-orange-600"
+              }`}
               aria-label="Tìm kiếm"
             >
               {showSearch ? "✕" : "Q"}
@@ -191,9 +230,15 @@ export default function Header() {
         )}
       </div>
 
-      {/* NAV sticky (đen mảnh) – overlay khi scroll */}
+      {/* NAV sticky – overlay khi scroll */}
       {isSticky && (
-        <div className="fixed top-0 left-0 w-full z-50 bg-black shadow-[0_2px_0_0_rgba(255,140,0,0.8)]">
+        <div
+          className={`fixed top-0 left-0 w-full z-50 border-b transition-colors duration-300 ${
+            isHome
+              ? "bg-black shadow-[0_2px_0_0_rgba(255,140,0,0.8)] border-transparent"
+              : "bg-white/95 shadow-[0_2px_0_0_rgba(255,140,0,0.4)] border-gray-200"
+          }`}
+        >
           <div className="container-default h-12 flex items-center justify-between">
             <button className="flex items-center gap-2">
               <img src={logo} alt="GT System" className="h-6 object-contain" />
@@ -202,10 +247,13 @@ export default function Header() {
             <nav className="flex items-center gap-4">
               <NavLink
                 to="/"
-                className={({ isActive }) =>
-                  `px-2 py-2 uppercase text-xs md:text-sm font-extrabold ${
-                    isActive ? "text-orange-400" : "text-white"
-                  } hover:text-orange-400`
+                className={() =>
+                  [
+                    "px-2 py-2 uppercase text-xs md:text-sm font-extrabold transition-colors duration-200",
+                    isHome
+                      ? "text-white hover:text-orange-400"
+                      : "text-slate-900 hover:text-orange-500",
+                  ].join(" ")
                 }
               >
                 Trang chủ
@@ -225,7 +273,13 @@ export default function Header() {
                   );
                 }}
               >
-                <button className="px-2 py-2 uppercase text-xs md:text-sm font-semibold text-white hover:text-orange-400">
+                <button
+                  className={`px-2 py-2 uppercase text-xs md:text-sm font-semibold transition-colors duration-200 ${
+                    isHome
+                      ? "text-white hover:text-orange-400"
+                      : "text-slate-900 hover:text-orange-500"
+                  }`}
+                >
                   Giới thiệu ▾
                 </button>
                 {AboutDropdown}
@@ -245,7 +299,13 @@ export default function Header() {
                   );
                 }}
               >
-                <button className="px-2 py-2 uppercase text-xs md:text-sm font-semibold text-white hover:text-orange-400">
+                <button
+                  className={`px-2 py-2 uppercase text-xs md:text-sm font-semibold transition-colors duration-200 ${
+                    isHome
+                      ? "text-white hover:text-orange-400"
+                      : "text-slate-900 hover:text-orange-500"
+                  }`}
+                >
                   Lĩnh vực hoạt động ▾
                 </button>
                 {FieldDropdown}
@@ -253,30 +313,39 @@ export default function Header() {
 
               <NavLink
                 to="/khach-hang"
-                className={({ isActive }) =>
-                  `px-2 py-2 uppercase text-xs md:text-sm font-semibold ${
-                    isActive ? "text-orange-400" : "text-white"
-                  } hover:text-orange-400`
+                className={() =>
+                  [
+                    "px-2 py-2 uppercase text-xs md:text-sm font-semibold transition-colors duration-200",
+                    isHome
+                      ? "text-white hover:text-orange-400"
+                      : "text-slate-900 hover:text-orange-500",
+                  ].join(" ")
                 }
               >
                 Khách hàng
               </NavLink>
               <NavLink
                 to="/tuyen-dung"
-                className={({ isActive }) =>
-                  `px-2 py-2 uppercase text-xs md:text-sm font-semibold ${
-                    isActive ? "text-orange-400" : "text-white"
-                  } hover:text-orange-400`
+                className={() =>
+                  [
+                    "px-2 py-2 uppercase text-xs md:text-sm font-semibold transition-colors duration-200",
+                    isHome
+                      ? "text-white hover:text-orange-400"
+                      : "text-slate-900 hover:text-orange-500",
+                  ].join(" ")
                 }
               >
                 Tuyển dụng
               </NavLink>
               <NavLink
                 to="/lien-he"
-                className={({ isActive }) =>
-                  `px-2 py-2 uppercase text-xs md:text-sm font-semibold ${
-                    isActive ? "text-orange-400" : "text-white"
-                  } hover:text-orange-400`
+                className={() =>
+                  [
+                    "px-2 py-2 uppercase text-xs md:text-sm font-semibold transition-colors duration-200",
+                    isHome
+                      ? "text-white hover:text-orange-400"
+                      : "text-slate-900 hover:text-orange-500",
+                  ].join(" ")
                 }
               >
                 Liên hệ
@@ -285,7 +354,11 @@ export default function Header() {
 
             <button
               onClick={() => setShowSearch((s) => !s)}
-              className="text-white hover:text-orange-400 text-sm"
+              className={`text-sm transition-colors duration-200 ${
+                isHome
+                  ? "text-white hover:text-orange-400"
+                  : "text-slate-900 hover:text-orange-500"
+              }`}
               aria-label="Tìm kiếm"
             >
               Q
