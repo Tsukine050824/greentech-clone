@@ -3,6 +3,7 @@ import TopBar from "../components/TopBar";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FloatingContact from "../components/FloatingContact";
+import ScrollToTop from "../components/ScrollToTop";
 
 export default function MainLayout() {
   return (
@@ -10,6 +11,7 @@ export default function MainLayout() {
       {/* phần header tổng: TopBar + Nav */}
       <TopBar />
       <Header />
+      <ScrollToTop />
 
       {/* nội dung từng trang */}
       <main className="flex-1">

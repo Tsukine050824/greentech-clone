@@ -52,7 +52,7 @@ export default function Careers() {
 
   const goToPage = (p) => {
     if (p < 1 || p > totalPages) return;
-    // Chỉ đổi trang, không cuộn lại lên đầu để giữ nguyên vị trí scroll hiện tại
+    // Chỉ đổi trang trong khu vực tuyển dụng, không can thiệp scroll toàn site
     setPage(p);
   };
 
