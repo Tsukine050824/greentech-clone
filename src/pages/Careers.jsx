@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import bgAbout from "../assets/background.webp";
 import gtsLogo from "../assets/Slidebar/GTSIcon.webp";
 
@@ -121,9 +122,12 @@ export default function Careers() {
 
               {/* Footer link */}
               <div className="border-t border-gray-100 bg-white px-6 py-3">
-                <button className="text-sm text-orange-500 italic hover:text-orange-600">
+                <Link
+                  to={`/tuyen-dung/${job.id}`}
+                  className="text-sm text-orange-500 italic hover:text-orange-600"
+                >
                   Xem chi tiết
-                </button>
+                </Link>
               </div>
             </article>
           ))}

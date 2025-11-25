@@ -44,6 +44,12 @@ export default function Header() {
     };
   }, []);
 
+  // Khi đổi trang (pathname thay đổi), đóng tất cả dropdown để tránh "kẹt" ở vị trí cũ
+  useEffect(() => {
+    setOpenAbout(false);
+    setOpenField(false);
+  }, [location.pathname]);
+
   // ==== Dropdown items =====
   const AboutDropdown = (
     <div

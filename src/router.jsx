@@ -5,6 +5,7 @@ import Services from "./pages/Services";
 import Clients from "./pages/Clients";
 import ClientDetail from "./pages/ClientDetail";
 import Careers from "./pages/Careers";
+import CareerDetail from "./pages/CareerDetail";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import AboutUs from "./pages/AboutUs";
@@ -27,6 +28,7 @@ export const router = createBrowserRouter([
       { path: "/khach-hang", element: <Clients /> },
       { path: "/khach-hang/:slug", element: <ClientDetail /> },
       { path: "/tuyen-dung", element: <Careers /> },
+      { path: "/tuyen-dung/:id", element: <CareerDetail /> },
       { path: "/lien-he", element: <Contact /> },
       {
         path: "/gioi-thieu",

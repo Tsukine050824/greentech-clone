@@ -41,59 +41,8 @@ export default function ArtificialIntelligence() {
 
       {/* ==== NỘI DUNG CHÍNH ==== */}
       <div className="container-default py-12 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[260px_minmax(0,1fr)] gap-8 lg:gap-10">
-          {/* Cột trái: menu Lĩnh vực hoạt động */}
-          <aside>
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-              <div className="px-5 py-3 border-b border-gray-100 font-semibold text-sm uppercase tracking-wide text-gray-700">
-                Lĩnh vực hoạt động
-              </div>
-              <nav className="divide-y divide-gray-100 text-sm">
-                <NavLink
-                  to="/linh-vuc-hoat-dong"
-                  className={({ isActive }) =>
-                    `block px-5 py-2.5 hover:bg-orange-50 ${
-                      isActive ? "text-orange-500 font-semibold" : ""
-                    }`
-                  }
-                >
-                  &gt; Tổng quan
-                </NavLink>
-                <NavLink
-                  to="/o-to-di-dong"
-                  className={({ isActive }) =>
-                    `block px-5 py-2.5 hover:bg-orange-50 ${
-                      isActive ? "text-orange-500 font-semibold" : ""
-                    }`
-                  }
-                >
-                  &gt; Ô tô &amp; Di động
-                </NavLink>
-                <NavLink
-                  to="/dich-vu-ki-thuat"
-                  className={({ isActive }) =>
-                    `block px-5 py-2.5 hover:bg-orange-50 ${
-                      isActive ? "text-orange-500 font-semibold" : ""
-                    }`
-                  }
-                >
-                  &gt; Dịch vụ kĩ thuật
-                </NavLink>
-                <NavLink
-                  to="/tri-tue-nhan-tao"
-                  className={({ isActive }) =>
-                    `block px-5 py-2.5 hover:bg-orange-50 ${
-                      isActive ? "text-orange-500 font-semibold" : ""
-                    }`
-                  }
-                >
-                  &gt; Trí tuệ nhân tạo
-                </NavLink>
-              </nav>
-            </div>
-          </aside>
-
-          {/* Cột phải: nội dung chính */}
+        <div className="max-w-5xl mx-auto">
+          {/* Nội dung chính */}
           <article className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             <div className="w-full flex justify-center bg-black/5 py-6">
               <div className="bg-white p-1 shadow-sm" style={{ width: 800, height: 400 }}>
