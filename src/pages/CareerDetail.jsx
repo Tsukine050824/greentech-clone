@@ -188,7 +188,7 @@ export default function CareerDetail() {
 
           {/* Mục lục nhỏ bên phải */}
           <aside className="space-y-6">
-            <nav className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-5 sticky top-24">
+            <nav className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 md:p-5">
               <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wide mb-3">
                 Mục lục
               </h3>
@@ -210,19 +210,19 @@ export default function CareerDetail() {
         </div>
 
         {/* Tin tuyển dụng liên quan */}
-        <section className="space-y-4">
+        <section className="space-y-4 max-w-4xl mr-auto">
           <h3 className="text-lg md:text-xl font-semibold text-gray-900">
             Tin tuyển dụng liên quan
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {RELATED_JOBS.map((job) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {RELATED_JOBS.slice(0, 3).map((job) => (
               <article
                 key={job.id}
-                className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200"
+                className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow duration-200 text-sm"
               >
-                <div className="relative px-6 pt-8 pb-4 flex flex-col items-center gap-4">
-                  <div className="absolute left-6 top-4">
-                    <div className="inline-flex items-center px-4 py-1.5 rounded-t-full rounded-br-full bg-gradient-to-r from-orange-400 to-orange-500 text-white text-xs font-bold uppercase tracking-wide shadow-sm">
+                <div className="relative px-4 pt-6 pb-3 flex flex-col items-center gap-3">
+                  <div className="absolute left-4 top-3">
+                    <div className="inline-flex items-center px-3 py-1 rounded-t-full rounded-br-full bg-gradient-to-r from-orange-400 to-orange-500 text-white text-[10px] font-bold uppercase tracking-wide shadow-sm">
                       Tuyển dụng
                     </div>
                   </div>
@@ -230,15 +230,15 @@ export default function CareerDetail() {
                   <img
                     src={gtsLogo}
                     alt="GT System"
-                    className="w-full max-w-[260px] object-contain mt-6"
+                    className="w-full max-w-[200px] object-contain mt-6"
                   />
                 </div>
 
-                <div className="px-6 pb-5 space-y-3">
-                  <h4 className="text-base md:text-lg font-semibold text-gray-900">
+                <div className="px-4 pb-4 space-y-2">
+                  <h4 className="text-sm md:text-[15px] font-semibold text-gray-900">
                     {job.title}
                   </h4>
-                  <p className="text-sm text-gray-700 leading-relaxed line-clamp-3">
+                  <p className="text-xs md:text-sm text-gray-700 leading-relaxed line-clamp-3">
                     {job.description}
                   </p>
                 </div>
