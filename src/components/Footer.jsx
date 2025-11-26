@@ -42,16 +42,16 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-3">
               <FaPhoneAlt className="text-orange-400" />
-              <span>Điện thoại: 02432018205 - 02432018205</span>
+              <span>Điện thoại: 0971811269</span>
             </li>
             <li className="flex items-center gap-3">
               <FaEnvelope className="text-orange-400" />
-              <span>Email: accountant-vn@gtsystem.co.kr</span>
+              <span>Email: nhatnamx698@gmail.com</span>
             </li>
-            <li className="flex items-center gap-3">
+            {/* <li className="flex items-center gap-3">
               <FaGlobe className="text-orange-400" />
               <span>Website: greentech-vn.com</span>
-            </li>
+            </li> */}
           </ul>
         </div>
 

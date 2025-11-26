@@ -5,21 +5,26 @@ import aiImg from "../../assets/AI.jpg";
 
 export default function ServicesHero() {
   return (
-    <section id="Services" className="relative bg-[#0b0b0b] overflow-hidden">
+    <section id="Services" className="relative bg-white overflow-hidden">
       {/* ====== HEADER nhỏ ====== */}
-      <div className="container-default max-w-[1400px] py-8 md:py-20">
-        <p
-          className="text-white text-[32px] font-semibold leading-snug font-[Poppins,sans-serif]"
-          style={{ fontFamily: "Poppins, sans-serif" }}
-        >
-          Dịch Vụ Của Chúng Tôi
-        </p>
+      <div className="bg-[#0b0b0b]">
+        <div className="container-default max-w-[1400px] py-8 md:py-20">
+          <p
+            className="text-white text-[32px] font-semibold leading-snug font-[Poppins,sans-serif]"
+            style={{ fontFamily: "Poppins, sans-serif" }}
+          >
+            Dịch Vụ Của Chúng Tôi
+          </p>
+        </div>
       </div>
-
       {/* ====== HERO CHÍNH ====== */}
-      <div className="w-full grid grid-cols-1 lg:grid-cols-[45%_55%] gap-0">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-[45%_55%] gap-0 border-t border-gray-200">
         {/* --- Cột trái: Ảnh --- */}
-        <div className="relative min-h-[550px] md:min-h-[480px] lg:min-h-[540px]">
+        <div
+          className="relative min-h-[550px] md:min-h-[480px] lg:min-h-[540px]"
+          data-aos="fade-down"
+          data-aos-delay="100"
+        >
           <img
             src={leftTechImg}
             alt="Dịch vụ công nghệ"
@@ -59,6 +64,8 @@ export default function ServicesHero() {
                     lineHeight: "1",
                     opacity: 0.9,
                   }}
+                  data-aos="fade-left"
+                  data-aos-delay="100"
                 >
                   01
                 </span>
@@ -74,6 +81,8 @@ export default function ServicesHero() {
                   <div
                     className="text-uppercase font-extrabold leading-[1.1]"
                     style={{ fontSize: "45px" }}
+                    data-aos="fade-down"
+                    data-aos-delay="100"
                   >
                     Ô TÔ <br /> &amp; DI ĐỘNG
                   </div>
@@ -81,6 +90,8 @@ export default function ServicesHero() {
                   <p
                     className="mt-4 font-medium"
                     style={{ fontSize: "15px", color: "#212529" }}
+                    data-aos="fade-up"
+                    data-aos-delay="100"
                   >
                     Buồng lái kỹ thuật số, Cụm, IVI, AUTOSAR
                   </p>
@@ -91,7 +102,7 @@ export default function ServicesHero() {
         </div>
       </div>
 
-      <div className="w-full grid grid-cols-1 lg:grid-cols-[55%_45%] gap-0">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-[55%_45%] gap-0 border-t border-gray-200">
         {/* --- Cột trái: Nội dung (55%) --- */}
         <div className="relative bg-gradient-to-br from-[#f8f8f8] to-[#ffffff]">
           <div className="container-default py-12 md:py-16 relative">
@@ -124,6 +135,8 @@ export default function ServicesHero() {
                     lineHeight: "1",
                     opacity: 0.9,
                   }}
+                  data-aos="fade-left"
+                  data-aos-delay="100"
                 >
                   02
                 </span>
@@ -139,6 +152,8 @@ export default function ServicesHero() {
                   <div
                     className="text-uppercase font-extrabold leading-[1.1]"
                     style={{ fontSize: "45px" }}
+                    data-aos="fade-down"
+                    data-aos-delay="100"
                   >
                     DỊCH VỤ <br /> KĨ THUẬT
                   </div>
@@ -149,6 +164,8 @@ export default function ServicesHero() {
                       fontSize: "15px",
                       color: "#212529",
                     }}
+                    data-aos="fade-up"
+                    data-aos-delay="100"
                   >
                     Ô tô, Di động, IoE, Nhà máy thông minh, Robot
                   </p>
@@ -159,7 +176,11 @@ export default function ServicesHero() {
         </div>
 
         {/* --- Cột phải: Ảnh (45%) --- */}
-        <div className="relative min-h-[550px] md:min-h-[480px] lg:min-h-[540px]">
+        <div
+          className="relative min-h-[550px] md:min-h-[480px] lg:min-h-[540px]"
+          data-aos="fade-down"
+          data-aos-delay="100"
+        >
           <img
             src={rightImg}
             alt="Dịch vụ kỹ thuật"
@@ -167,9 +188,13 @@ export default function ServicesHero() {
           />
         </div>
       </div>
-      <div className="w-full grid grid-cols-1 lg:grid-cols-[45%_55%] gap-0">
+      <div className="w-full grid grid-cols-1 lg:grid-cols-[45%_55%] gap-0 border-t border-gray-200">
         {/* --- Cột trái: Ảnh (45%) --- */}
-        <div className="relative min-h-[550px] md:min-h-[480px] lg:min-h-[540px]">
+        <div
+          className="relative min-h-[550px] md:min-h-[480px] lg:min-h-[540px]"
+          data-aos="fade-down"
+          data-aos-delay="100"
+        >
           <img
             src={aiImg}
             alt="Trí tuệ nhân tạo"
@@ -202,6 +227,8 @@ export default function ServicesHero() {
                     lineHeight: "1",
                     opacity: 0.9,
                   }}
+                  data-aos="fade-left"
+                  data-aos-delay="100"
                 >
                   03
                 </span>
@@ -217,6 +244,8 @@ export default function ServicesHero() {
                   <div
                     className="text-uppercase font-extrabold leading-[1.1]"
                     style={{ fontSize: "45px" }}
+                    data-aos="fade-down"
+                    data-aos-delay="100"
                   >
                     TRÍ TUỆ <br /> NHÂN TẠO
                   </div>
@@ -224,6 +253,8 @@ export default function ServicesHero() {
                   <p
                     className="mt-4 font-medium"
                     style={{ fontSize: "15px", color: "#212529" }}
+                    data-aos="fade-up"
+                    data-aos-delay="100"
                   >
                     Tầm nhìn, NLP, Học máy
                   </p>

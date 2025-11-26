@@ -71,6 +71,7 @@ export default function NewsCarousel() {
   const animRef = useRef(null);
 
   const realCount = newsItems.length;
+  const centerOffset = Math.floor(VISIBLE / 2);
 
   // extended: clone VISIBLE cuối lên đầu + VISIBLE đầu xuống cuối
   const extended = useMemo(() => {
@@ -232,7 +233,8 @@ export default function NewsCarousel() {
     if (isDraggingRef.current || animRef.current) {
       const rawIndex = Math.round(scrollLeft / step) - VISIBLE;
       const safeIndex = ((rawIndex % realCount) + realCount) % realCount;
-      setActiveIndex(safeIndex);
+      const centerIndex = (safeIndex + centerOffset) % realCount;
+      setActiveIndex(centerIndex);
       return;
     }
 
@@ -253,7 +255,8 @@ export default function NewsCarousel() {
 
     const realIndex = indexByStep - VISIBLE;
     const safeIndex = ((realIndex % realCount) + realCount) % realCount;
-    setActiveIndex(safeIndex);
+    const centerIndex = (safeIndex + centerOffset) % realCount;
+    setActiveIndex(centerIndex);
   };
 
   // Autoplay: dùng smoothScrollTo, infinite sẽ xử lý sau khi animation kết thúc
@@ -275,22 +278,26 @@ export default function NewsCarousel() {
     };
   }, [step, paused, smoothScrollTo, cancelAnim]);
 
-  return (
-    <section className="bg-white py-20 md:py-24 overflow-visible">
-      <div className="container-default">
-        {/* Header */}
-        <div className="flex flex-wrap items-center justify-center md:justify-between mb-10 md:mb-12">
-          <div className="flex items-center gap-4 mb-4 md:mb-0">
-            <div>
-              <div className="h-1 w-10 bg-gradient-to-r from-yellow-300 to-orange-400 mb-1" />
-              <p className="text-lg md:text-2xl font-extrabold">
-                Tin Tức Của Chúng Tôi
-              </p>
-            </div>
+  
+return (
+  <section className="bg-white py-20 md:py-24 overflow-visible">
+    <div className="container-default">
+      {/* Header */}
+      <div className="flex flex-wrap items-center justify-center md:justify-between mb-10 md:mb-12">
+        <div
+          className="flex items-center gap-4 mb-4 md:mb-0"
+          data-aos="fade-right"
+          data-aos-delay="100"
+        >
+          <div>
+            <div className="h-1 w-10 bg-gradient-to-r from-yellow-300 to-orange-400 mb-1" />
+            <p className="text-lg md:text-2xl font-extrabold">Tin Tức Của Chúng Tôi</p>
           </div>
         </div>
+      </div>
 
-        {/* Slider viewport */}
+      {/* Slider viewport */}
+      <div data-aos="fade-up" data-aos-delay="100">
         <div
           ref={viewportRef}
           className={`
@@ -307,65 +314,71 @@ export default function NewsCarousel() {
           onMouseLeave={() => !isDragging && setPaused(false)}
         >
           <div className="flex items-stretch" style={{ columnGap: `${gap}px` }}>
-            {extended.map((item, idx) => (
-              <div
-                key={`${item.id}-${idx}`}
-                className={`
-                  news-card
-                  shrink-0 bg-white rounded-2xl border
-                  transition-all duration-300
-                  shadow-[0_8px_24px_rgba(15,23,42,0.08)]
-                  mt-2 mb-8
-                `}
-                style={{
-                  width: `${cardW}px`,
-                  flex: `0 0 ${cardW}px`,
-                }}
-              >
-                <div className="flex flex-col h-full px-4 md:px-5 lg:px-6 pt-5 pb-6 md:pt-6 md:pb-7">
-                  {/* Text */}
-                  <div className="flex-1 flex flex-col">
-                    <span className="inline-block px-3 py-1 mb-3 bg-gradient-to-r from-yellow-300 to-orange-400 text-[10px] md:text-xs font-semibold uppercase tracking-wide text-[#111827]">
-                      {item.category}
-                    </span>
+            {extended.map((item, idx) => {
+              const isActive =
+                newsItems[activeIndex] && item.id === newsItems[activeIndex].id;
 
-                    <a
-                      href={item.link}
-                      className="mb-2 text-sm md:text-base font-extrabold uppercase text-[#111827] leading-snug line-clamp-2"
-                    >
-                      {item.title}
-                    </a>
+              return (
+                <div
+                  key={`${item.id}-${idx}`}
+                  className={`
+                    news-card
+                    shrink-0 bg-white rounded-2xl border
+                    transition-all duration-300
+                    shadow-[0_8px_24px_rgba(15,23,42,0.08)]
+                    mt-2 mb-8
+                    ${isActive ? "md:-translate-y-4" : "md:translate-y-0"}
+                  `}
+                  style={{
+                    width: `${cardW}px`,
+                    flex: `0 0 ${cardW}px`,
+                  }}
+                >
+                  <div className="flex flex-col h-full px-4 md:px-5 lg:px-6 pt-5 pb-6 md:pt-6 md:pb-7">
+                    {/* Text */}
+                    <div className="flex-1 flex flex-col">
+                      <span className="inline-block px-3 py-1 mb-3 bg-gradient-to-r from-yellow-300 to-orange-400 text-[10px] md:text-xs font-semibold uppercase tracking-wide text-[#111827]">
+                        {item.category}
+                      </span>
 
-                    <p className="text-[11px] md:text-[13px] text-[#4b5563] leading-relaxed line-clamp-3">
-                      {item.desc}
-                    </p>
-
-                    <div className="mt-auto pt-2 flex justify-start">
                       <a
                         href={item.link}
-                        className="text-[10px] md:text-xs font-semibold text-orange-500 hover:text-orange-600 inline-flex items-center gap-1"
+                        className="mb-2 text-sm md:text-base font-extrabold uppercase text-[#111827] leading-snug line-clamp-2"
                       >
-                        Xem chi tiết <span>➜</span>
+                        {item.title}
+                      </a>
+
+                      <p className="text-[11px] md:text-[13px] text-[#4b5563] leading-relaxed line-clamp-3">
+                        {item.desc}
+                      </p>
+
+                      <div className="mt-auto pt-2 flex justify-start">
+                        <a
+                          href={item.link}
+                          className="text-[10px] md:text-xs font-semibold text-orange-500 hover:text-orange-600 inline-flex items-center gap-1"
+                        >
+                          Xem chi tiết <span>➜</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Image */}
+                    <div className="flex-1 flex items-center justify-center mt-4">
+                      <a
+                        href={item.link}
+                        className="block w-full h-full flex items-center justify-center"
+                      >
+                        <img
+                          src={item.img}
+                          alt={item.title}
+                          className="w-full h-full object-contain"
+                        />
                       </a>
                     </div>
                   </div>
-
-                  {/* Image */}
-                  <div className="flex-1 flex items-center justify-center mt-4">
-                    <a
-                      href={item.link}
-                      className="block w-full h-full flex items-center justify-center"
-                    >
-                      <img
-                        src={item.img}
-                        alt={item.title}
-                        className="w-full h-full object-contain"
-                      />
-                    </a>
-                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -381,16 +394,18 @@ export default function NewsCarousel() {
                   const targetIndex = VISIBLE + i;
                   smoothScrollTo(targetIndex * step);
                 }}
-                className={`h-[6px] rounded-full transition-all duration-300 ${
+                className={
                   active
-                    ? "w-12 bg-orange-500"
-                    : "w-6 bg-gray-300 hover:bg-gray-400"
-                }`}
+                    ? "h-[6px] rounded-full transition-all duration-300 w-12 bg-orange-500"
+                    : "h-[6px] rounded-full transition-all duration-300 w-6 bg-gray-300 hover:bg-gray-400"
+                }
+                aria-label={`Go to slide ${i + 1}`}
               />
             );
           })}
         </div>
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 }

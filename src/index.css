@@ -5,3 +5,19 @@
 /* helpers */
 .container-default { @apply max-w-7xl mx-auto px-4; }
 .section { @apply py-10 md:py-14; }
+
+/* Sticky header slide-down animation */
+.header-sticky-enter {
+  animation: header-sticky-slide 220ms ease-out;
+}
+
+@keyframes header-sticky-slide {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

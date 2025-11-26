@@ -239,23 +239,23 @@ export default function Header() {
       {/* NAV sticky – overlay khi scroll */}
       {isSticky && (
         <div
-          className={`fixed top-0 left-0 w-full z-50 border-b transition-colors duration-300 ${
+          className={`fixed top-0 left-0 w-full z-50 border-b transition-colors duration-300 header-sticky-enter ${
             isHome
               ? "bg-black shadow-[0_2px_0_0_rgba(255,140,0,0.8)] border-transparent"
               : "bg-white/95 shadow-[0_2px_0_0_rgba(255,140,0,0.4)] border-gray-200"
           }`}
         >
-          <div className="container-default h-12 flex items-center justify-between">
+          <div className="container-default h-14 md:h-16 flex items-center justify-between">
             <button className="flex items-center gap-2">
-              <img src={logo} alt="GT System" className="h-6 object-contain" />
+              <img src={logo} alt="GT System" className="h-7 md:h-8 object-contain" />
             </button>
 
-            <nav className="flex items-center gap-4">
+            <nav className="flex items-center gap-5 md:gap-6">
               <NavLink
                 to="/"
                 className={() =>
                   [
-                    "px-2 py-2 uppercase text-xs md:text-sm font-extrabold transition-colors duration-200",
+                    "px-3 md:px-4 py-2.5 uppercase text-sm md:text-[15px] font-extrabold tracking-wide transition-colors duration-200",
                     isHome
                       ? "text-white hover:text-orange-400"
                       : "text-slate-900 hover:text-orange-500",
@@ -280,7 +280,7 @@ export default function Header() {
                 }}
               >
                 <button
-                  className={`px-2 py-2 uppercase text-xs md:text-sm font-semibold transition-colors duration-200 ${
+                  className={`px-3 md:px-4 py-2.5 uppercase text-sm md:text-[15px] font-semibold tracking-wide transition-colors duration-200 ${
                     isHome
                       ? "text-white hover:text-orange-400"
                       : "text-slate-900 hover:text-orange-500"
@@ -306,7 +306,7 @@ export default function Header() {
                 }}
               >
                 <button
-                  className={`px-2 py-2 uppercase text-xs md:text-sm font-semibold transition-colors duration-200 ${
+                  className={`px-3 md:px-4 py-2.5 uppercase text-sm md:text-[15px] font-semibold tracking-wide transition-colors duration-200 ${
                     isHome
                       ? "text-white hover:text-orange-400"
                       : "text-slate-900 hover:text-orange-500"
@@ -321,7 +321,7 @@ export default function Header() {
                 to="/khach-hang"
                 className={() =>
                   [
-                    "px-2 py-2 uppercase text-xs md:text-sm font-semibold transition-colors duration-200",
+                    "px-3 md:px-4 py-2.5 uppercase text-sm md:text-[15px] font-semibold tracking-wide transition-colors duration-200",
                     isHome
                       ? "text-white hover:text-orange-400"
                       : "text-slate-900 hover:text-orange-500",
@@ -334,7 +334,7 @@ export default function Header() {
                 to="/tuyen-dung"
                 className={() =>
                   [
-                    "px-2 py-2 uppercase text-xs md:text-sm font-semibold transition-colors duration-200",
+                    "px-3 md:px-4 py-2.5 uppercase text-sm md:text-[15px] font-semibold tracking-wide transition-colors duration-200",
                     isHome
                       ? "text-white hover:text-orange-400"
                       : "text-slate-900 hover:text-orange-500",
@@ -347,7 +347,7 @@ export default function Header() {
                 to="/lien-he"
                 className={() =>
                   [
-                    "px-2 py-2 uppercase text-xs md:text-sm font-semibold transition-colors duration-200",
+                    "px-3 md:px-4 py-2.5 uppercase text-sm md:text-[15px] font-semibold tracking-wide transition-colors duration-200",
                     isHome
                       ? "text-white hover:text-orange-400"
                       : "text-slate-900 hover:text-orange-500",
@@ -360,7 +360,7 @@ export default function Header() {
 
             <button
               onClick={() => setShowSearch((s) => !s)}
-              className={`text-sm transition-colors duration-200 ${
+              className={`text-base md:text-lg transition-colors duration-200 ${
                 isHome
                   ? "text-white hover:text-orange-400"
                   : "text-slate-900 hover:text-orange-500"

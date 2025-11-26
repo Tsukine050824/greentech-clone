@@ -1,5 +1,7 @@
 // src/components/PartnersCarousel.jsx
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 import RKanzi from "../../assets/Slidebar/RKanzi.webp";
 import Qualcomm from "../../assets/Slidebar/Qualcomm.webp";
@@ -58,6 +60,22 @@ export default function PartnersCarousel() {
     return [...head, ...BASE_LOGOS, ...tail];
   }, []);
 
+  // init AOS (dùng cùng logic AOS của NewsCarousel)
+  useEffect(() => {
+    AOS.init({
+      duration: 700,
+      easing: "ease-out-cubic",
+      once: true, // animate only once when scrolled into view
+      offset: 120,
+    });
+
+    // refresh once after first paint to consider images/layout
+    const id = setTimeout(() => AOS.refresh(), 50);
+    return () => {
+      clearTimeout(id);
+    };
+  }, []);
+
   // đo kích thước & đặt vị trí ban đầu ngay sau “clone trái”
   useEffect(() => {
     const handleResize = () => {
@@ -79,6 +97,8 @@ export default function PartnersCarousel() {
         if (!viewportRef.current) return;
         // nhảy vào vùng thật (bỏ VISIBLE clone trái)
         viewportRef.current.scrollLeft = s * VISIBLE;
+        // sau khi layout cố định, refresh AOS để nó tính đúng vị trí
+        AOS.refresh();
       });
     };
 
@@ -87,7 +107,7 @@ export default function PartnersCarousel() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // cancel + smoothScrollTo (giống NewsCarousel)
+  // cancel + smoothScrollTo
   const cancelAnim = useCallback(() => {
     if (animRef.current) {
       cancelAnimationFrame(animRef.current);
@@ -217,7 +237,7 @@ export default function PartnersCarousel() {
     }
   };
 
-  // nút trái/phải dùng smoothScrollTo (giống NewsCarousel dots)
+  // nút trái/phải dùng smoothScrollTo
   const goLeft = () => {
     const viewport = viewportRef.current;
     if (!viewport || !step) return;
@@ -235,7 +255,11 @@ export default function PartnersCarousel() {
   return (
     <section className="py-14 md:py-20 bg-white overflow-visible">
       <div className="container-default">
-        <h2 className="text-center text-2xl md:text-4xl font-extrabold mb-8 md:mb-12">
+        <h2
+          className="text-center text-2xl md:text-4xl font-extrabold mb-8 md:mb-12"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
           Đối Tác Của Chúng Tôi
         </h2>
 
@@ -264,25 +288,35 @@ export default function PartnersCarousel() {
             onTouchMove={handleDragMove}
             onScroll={handleScroll}
           >
-            <div className="flex items-stretch" style={{ columnGap: `${gap}px` }}>
-              {extended.map((logo, idx) => (
-                <div
-                  key={`${logo.alt}-${idx}`}
-                  className="shrink-0 rounded-xl bg-white p-6 md:p-8
-                             shadow-[0_10px_25px_rgba(16,24,40,0.08)]
-                             ring-1 ring-gray-100 flex items-center justify-center
-                             transition-transform duration-300 hover:scale-105"
-                  style={{ width: `${cardW}px`, flex: `0 0 ${cardW}px` }}
-                >
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="w-full h-16 md:h-20 object-contain transition-all duration-300 hover:brightness-110"
-                    draggable={false}
-                    loading="lazy"
-                  />
-                </div>
-              ))}
+            <div
+              className="flex items-center"
+              style={{ columnGap: `${gap}px` }}
+            >
+              {extended.map((logo, idx) => {
+                const baseDelay = 100;
+                const delay = Math.min(800, baseDelay + idx * 60);
+
+                return (
+                  <div
+                    key={`${logo.alt}-${idx}`}
+                    className="shrink-0 rounded-xl bg-white px-4 py-4 md:px-6 md:py-5
+                     shadow-[0_10px_25px_rgba(16,24,40,0.06)]
+                     ring-1 ring-gray-100 flex items-center justify-center
+                     transition-transform duration-300 hover:scale-105"
+                    style={{ width: `${cardW}px`, flex: `0 0 ${cardW}px` }}
+                    data-aos="fade-left"
+                    data-aos-delay={delay}
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="w-full max-w-[180px] h-auto md:h-16 object-contain transition-all duration-300 hover:brightness-110"
+                      draggable={false}
+                      loading="lazy"
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
 

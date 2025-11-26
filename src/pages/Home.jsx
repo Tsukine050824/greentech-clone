@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import bgHeader from "../assets/header.webp";
 import CountUp from "react-countup";
 import useInView from "../hooks/useInView";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 // các section cũ
 import AboutIntro from "../sections/home/AboutIntro";
@@ -10,6 +13,15 @@ import PartnersCarousel from "../sections/home/PartnersCarousel";
 
 export default function Home() {
   const { ref: statsRef, inView } = useInView({ threshold: 0.2, once: true });
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: "ease-out-cubic",
+      once: true, // animate only the first time element enters viewport, no reverse on scroll up
+    });
+    AOS.refresh();
+  }, []);
 
   const stats = [
     { value: 350, suffix: "+", label: "Khách hàng, đối tác thân thiết" },
